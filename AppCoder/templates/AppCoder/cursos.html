@@ -1,0 +1,25 @@
+{% extends "AppCoder/padre.html" %}
+
+{% load static %}
+
+{% block titulo %}
+<h1 class="mb-5">SECCION CURSOS</h1>
+
+<a class="btn btn-primary" href="{% url 'cursoFormulario' %}">FORMULARIO DE INGRESO</a>
+<a class="btn btn-primary" href="{% url 'busquedaComision' %}">BUSQUEDA COMISION</a>
+
+
+{% endblock %}
+
+{% block contenido %}
+<h2>CONTENIDO DE CURSOS</h2>
+
+<ul>
+    {% for curso in cursos %}
+        <li>{{ curso.nombre }} - {{ curso.comision }}</li>
+    {% endfor %}
+
+
+</ul>
+
+{% endblock %}

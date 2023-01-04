@@ -1,0 +1,30 @@
+{% extends "AppCoder/padre.html" %}
+
+{% load static %}
+
+{% block titulo %}
+<h1 class="mb-5">BUSQUEDA DE COMISIONES</h1>
+{% endblock %}
+
+{% block contenido %}
+
+
+{% if cursos %}
+
+<h1>RESULTADO DE LA BUSQUEDA</h1>
+
+<h2>Curso    -    Comision</h2>
+
+{% for curso in cursos %}
+
+<h3> {{ curso.nombre }} - {{ curso.comision }}</h3>
+
+{% endfor %}
+
+{% else %}
+
+<h2>No se encontro ninguna comision, con esos paremetros.</h2>
+
+{% endif %}
+
+{% endblock %}
