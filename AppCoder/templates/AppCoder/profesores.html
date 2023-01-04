@@ -9,6 +9,20 @@
 {% endblock %}
 
 {% block contenido %}
-<h2>CONTENIDO DE PROFESORES</h2>
+<h2>LISTADO DE PROFESORES</h2>
 
+<a class="btn btn-primary" href="{% url 'leerProfesores' %}">MOSTRAR PROFESORES</a>
+
+<ul>
+
+    {% for profesor in profesores %}
+
+        <li>{{profesor.nombre}},{{profesor.apellido}} - {{profesor.profesion}}</li>
+
+        <a type="button" class="btn btn-outline-primary" href="#">Eliminar {{profesor.nombre}}</a>
+        <a type="button" class="btn btn-outline-primary" href="#">Editar {{profesor.nombre}}</a>
+
+    {% endfor %}
+
+</ul>
 {% endblock %}

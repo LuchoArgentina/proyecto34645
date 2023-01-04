@@ -100,3 +100,8 @@ def buscar(request):
         return render(request, "AppCoder/resultadoBusqueda.html", {"cursos":cursos})
     else:
         return render(request, "AppCoder/busquedaComision.html", {"mensaje": "Ingres una comision para buscar!"})
+
+
+def leerProfesores(request):
+    profesores=Profesor.objects.all()
+    return render(request, "AppCoder/profesores.html", {"profesores": profesores})
