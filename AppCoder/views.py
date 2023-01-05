@@ -105,3 +105,20 @@ def buscar(request):
 def leerProfesores(request):
     profesores=Profesor.objects.all()
     return render(request, "AppCoder/profesores.html", {"profesores": profesores})
+
+
+def eliminarProfesor(request, id):
+    profesor=Profesor.objects.get(id=id)  #Cuando llamo al profe, me lo trae, para luego eliminar.
+    profesor.delete()
+    profesores=Profesor.objects.all()
+    return render(request, "AppCoder/Profesores.html", {"profesor":profesores,"mensaje":"Profesor eliminado correctamente"})
+
+
+def editarProfesor(request, id):
+    profesor=Profesor.objects.get(id=id) #Traje al profe que quiero editar
+    if request.method=="POST":
+        pass
+    else:
+        formulario= ProfeForm(initial={"nombre":profesor.nombre,"apellido":profesor.apellido,"email":profesor.email,"profesion":profesor.profesion})
+        return render(request, "AppCoder/editarProfesor.html",{"form":formulario,"profesor":profesor} )  
+    

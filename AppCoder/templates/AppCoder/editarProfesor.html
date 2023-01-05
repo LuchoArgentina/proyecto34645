@@ -1,0 +1,40 @@
+{% extends "AppCoder/padre.html" %}
+
+{% load static %}
+
+{% block titulo %}
+<h1 class="mb-5">EDITANDO PROFESOR : {{ profesor}}</h1>
+{% endblock %}
+
+{% block contenido %}
+
+
+<section class="features-icons bg-light text-center">
+   
+   <!-- <form action="{% url 'cursoFormulario' %}" method="POST"> {% csrf_token %}
+
+        <p>Curso: <input type="text" name= "nombre"> </p>
+
+        <p>Comision: <input type="number" name= "comision"> </p>
+
+        <input type="submit" value="Guardar Curso">
+
+    </form>
+     -->
+
+   <form action="{% url 'editarProfesor' profesor.id %}" method="POST"> {% csrf_token %}
+
+     <h3>{{ mensaje }}</h3>
+      
+     <table>
+
+        {{ form1.as_table }}
+
+     </table>
+
+     <input type="submit" value="Guardar Profesor">
+
+   </form>
+
+</section>
+{% endblock %}

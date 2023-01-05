@@ -5,13 +5,14 @@
 {% block titulo %}
 <h1 class="mb-5">SECCION PROFESORES</h1>
 
-<a class="btn btn-primary" href="{% url 'profeFormulario' %}">FORMULARIO</a>
+<a class="btn btn-primary" href="{% url 'profeFormulario' %}">INGRESAR 
+<a class="btn btn-primary" href="{% url 'leerProfesores' %}">MOSTRAR TODOS</a>
+
+
 {% endblock %}
 
 {% block contenido %}
 <h2>LISTADO DE PROFESORES</h2>
-
-<a class="btn btn-primary" href="{% url 'leerProfesores' %}">MOSTRAR PROFESORES</a>
 
 <ul>
 
@@ -19,8 +20,10 @@
 
         <li>{{profesor.nombre}},{{profesor.apellido}} - {{profesor.profesion}}</li>
 
-        <a type="button" class="btn btn-outline-primary" href="#">Eliminar {{profesor.nombre}}</a>
+        <a type="button" class="btn btn-outline-primary" href="{% url 'eliminarProfesor' profesor.id %}">Eliminar {{profesor.nombre}}</a>
         <a type="button" class="btn btn-outline-primary" href="#">Editar {{profesor.nombre}}</a>
+
+    <h2> {{ mensaje }} </h2>
 
     {% endfor %}
 
