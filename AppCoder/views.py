@@ -60,11 +60,11 @@ def cursoFormulario(request):
             curso.save()
             return render(request, "AppCoder/inicio.html", {"mensaje": "Curso guardado correctamente"})
         else:
-            return render(request, "AppCoder/cursoFormulario.html", {"form1":form, "mensaje": "Info no valida"})
+            return render(request, "AppCoder/cursoFormulario.html", {"form":form, "mensaje": "Info no valida"})
 
     else:
         formulario=CursoForm()
-        return render(request, "AppCoder/cursoFormulario.html", {"form1":formulario})
+        return render(request, "AppCoder/cursoFormulario.html", {"form":formulario})
 
 
 def profeFormulario(request):
@@ -80,7 +80,8 @@ def profeFormulario(request):
             profesion=informacion["profesion"]
             curso= Profesor(nombre=nombre, apellido=apellido, email=email, profesion=profesion)
             curso.save()
-            return render(request, "AppCoder/inicio.html", {"mensaje": "Profe guardado correctamente"})
+            profesores=Profesor.objects.all()
+            return render(request, "AppCoder/profesores.html", {"profesores":profesores,"mensaje": "Profe guardado correctamente"})
         else:
             return render(request, "AppCoder/profeFormulario.html", {"form":form, "mensaje": "Info no valida"})
 
@@ -104,7 +105,7 @@ def buscar(request):
 
 def leerProfesores(request):
     profesores=Profesor.objects.all()
-    return render(request, "AppCoder/profesores.html", {"profesores": profesores})
+    return render(request, "AppCoder/profesores.html", {"mensaje":"LISTADO COMPLETO:","profesores": profesores})
 
 
 def eliminarProfesor(request, id):
@@ -117,7 +118,17 @@ def eliminarProfesor(request, id):
 def editarProfesor(request, id):
     profesor=Profesor.objects.get(id=id) #Traje al profe que quiero editar
     if request.method=="POST":
-        pass
+        form= ProfeForm(request.POST)
+        if form.is_valid():
+            info=form.cleaned_data
+            profesor.nombre=info["nombre"]
+            profesor.apellido=info["apellido"]
+            profesor.email=info["email"]
+            profesor.profesion=info["profesion"]
+            profesor.save()
+            profesores=Profesor.objects.all()
+            return render(request, "AppCoder/Profesores.html", {"mensaje": "Profesor editado correctamente"})
+
     else:
         formulario= ProfeForm(initial={"nombre":profesor.nombre,"apellido":profesor.apellido,"email":profesor.email,"profesion":profesor.profesion})
         return render(request, "AppCoder/editarProfesor.html",{"form":formulario,"profesor":profesor} )  
