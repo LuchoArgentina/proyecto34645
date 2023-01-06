@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Curso, Profesor
-from AppCoder.forms import CursoForm, ProfeForm
+from .models import Curso, Profesor, Persona
+from AppCoder.forms import CursoForm, ProfeForm, PersonaForm
 
 # Create your views here.
 
@@ -133,3 +133,28 @@ def editarProfesor(request, id):
         formulario= ProfeForm(initial={"nombre":profesor.nombre,"apellido":profesor.apellido,"email":profesor.email,"profesion":profesor.profesion})
         return render(request, "AppCoder/editarProfesor.html",{"form":formulario,"profesor":profesor} )  
     
+def leerPersonas(request):
+    personas= Persona.objects.all()
+    return render(request, "AppCoder/personas.html", {"personas":personas})
+
+
+def agregarPersona(request):
+    if request.method=="POST":
+        formulario=PersonaForm(request.POST)
+        if formulario.is_valid():
+            info=formulario.cleaned_data
+            dni=info["dni"]
+            nombre=info["nombre"]
+            apellido=info["apellido"]
+            email=info["email"]
+            fecha_nacimiento=info["fechaNacimiento"]
+            tieneObraSocial=info["tieneObraSocial"]
+            persona= Persona(dni=dni,nombre=nombre,apellido=apellido,email=email,fechaNacimiento=fecha_nacimiento,tieneObraSocial=tieneObraSocial)
+            persona.save()
+            personas= Persona.objects.all()
+            return render(request, "AppCoder/personas.html", {"personas":personas, "mensaje": "Persona guardada correctamente"})
+        else:
+            return render(request, "AppCoder/agregarPersona.html", {"formulario": formulario})
+    else:
+        form=PersonaForm()
+        return render(request, "AppCoder/agregarPersona.html", {"form": form, "mensaje":"AGREGAR PERSONA"})

@@ -1,0 +1,35 @@
+{% extends "AppCoder/padre.html" %}
+
+{% load static %}
+
+{% block titulo %}
+<h1 class="mb-5">SECCION PERSONAS</h1>
+
+
+
+{% endblock %}
+
+{% block contenido %}
+
+<h1>LISTADO DE PERSONAS</h1>
+<h2> {{mensaje}} </h2>
+
+<ul>
+
+    {% for persona in personas %}
+
+        <li>{{persona.nombre}} {{persona.apellido}} | {{persona.email}} - {{persona.fechaNacimiento}}</li>
+
+        
+        <a class="btn btn-success" href="#">Editar persona - {{ persona.nombre }} {{ persona.apellido }}</a>
+        <a class="btn btn-danger" href="#">Eliminar persona - {{ persona.nombre }} {{ persona.apellido }}</a>
+
+
+    {% endfor %}
+
+</ul>
+
+<a class="btn btn-primary" href="{% url 'agregarPersona' %}">AGREGAR PERSONAS </a>
+
+
+{% endblock %}

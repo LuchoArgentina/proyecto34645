@@ -29,3 +29,14 @@ class Entregable(models.Model):
     fecha_entrega=models.DateField()
     entregado=models.BooleanField()
 
+class Persona(models.Model):
+    dni= models.IntegerField()
+    nombre= models.CharField(max_length=50)
+    apellido= models.CharField(max_length=50)
+    email= models.EmailField()
+    fechaNacimiento= models.DateField()
+    tieneObraSocial= models.BooleanField()
+
+    def __str__(self):
+        return f"{self.nombre} {self.apellido}"
+
