@@ -1,0 +1,40 @@
+{% extends "AppCoder/padre.html" %}
+
+{% load static %}
+
+{% block titulo %}
+<h1 class="mb-5">FORMULARIO DE REGISTRO</h1>
+{% endblock %}
+
+{% block contenido %}
+<h1>FORMULARIO DE REGISTRO</h1>
+
+<section class="features-icons bg-light text-center">
+   
+   <!-- <form action="{% url 'cursoFormulario' %}" method="POST"> {% csrf_token %}
+
+        <p>Curso: <input type="text" name= "nombre"> </p>
+
+        <p>Comision: <input type="number" name= "comision"> </p>
+
+        <input type="submit" value="Guardar Curso">
+
+    </form>
+     -->
+
+   <form action="{% url 'register' %}" method="POST"> {% csrf_token %}
+
+     <h3>{{ mensaje }}</h3>
+      
+     <table>
+
+        {{ form.as_table }}
+
+     </table>
+
+     <input type="submit" value="Crear usuario">
+
+   </form>
+
+</section>
+{% endblock %}

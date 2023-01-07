@@ -1,7 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.urls import reverse_lazy
 from .models import Curso, Profesor, Persona
-from AppCoder.forms import CursoForm, ProfeForm, PersonaForm
+from AppCoder.forms import CursoForm, ProfeForm, PersonaForm, RegistroUsuarioForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
 # Create your views here.
 
@@ -158,3 +161,17 @@ def agregarPersona(request):
     else:
         form=PersonaForm()
         return render(request, "AppCoder/agregarPersona.html", {"form": form, "mensaje":"AGREGAR PERSONA"})
+
+
+def register(request):
+    if request.method=="POST":
+        form= RegistroUsuarioForm(request.POST)
+        if form.is_valid():
+            username= form.cleaned_data.get("username")
+            form.save()
+            return render(request, "AppCoder/inicio.html", {"mensaje":f"Usuario {username} creado correctamente"})
+        else:
+            return render(request, "AppCoder/register.html", {"form": form, "mensaje": "Error al crear el usuario"})
+    else:
+        form= RegistroUsuarioForm()
+        return render(request, "AppCoder/register.html", {"form":form}) 
